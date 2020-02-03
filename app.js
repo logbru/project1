@@ -11,11 +11,21 @@ $(document).ready(function () {
 });
 
 $('#card_search').on('click', (e) => {
-console.log('ping')
+  let name = $('#card_name').val()
+  if ($('#card_select').val() === '1'){isPokemon = true}else{isPokemon = false}
+  console.log(userInput, isPokemon)
+
+  if (isPokemon = true){
+displayPokemonCards(name)
+  }else{
+
+  }
 })
 
 
 const displayPokemonCards = userInput =>{
+  $('#card_list').html('')
+
   $.get(`https://api.pokemontcg.io/v1/cards?name=${userInput}`)
     .then( ({cards}) =>{
       console.log(cards)

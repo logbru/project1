@@ -37,7 +37,7 @@ const displayPokemonCards = userInput =>{
         newCards.html(`
         <div class="card">
           <div class="card-image">
-            <img height=400 src="${cards[i].imageUrl}">
+            <img height=400 src="${cards[i].imageUrlHiRes}">
           </div>
           <div class="card-action">
             <a href="#">Add to deck</a>

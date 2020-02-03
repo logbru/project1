@@ -32,6 +32,9 @@ const displayPokemonCards = userInput => {
     .then(({ cards }) => {
       console.log(cards)
       let selector = $('#card_list')
+      let cardsAmount = cards.length++
+      console.log(cardsAmount)
+      $('#total').text(`Total Cards Found: ${cardsAmount}`)
       for (let i = 0; i < cards.length; i++) {
         let newCards = $('<div>')
         newCards.attr('id', cards[i].id)

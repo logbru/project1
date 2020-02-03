@@ -53,4 +53,3 @@ const displayPokemonCards = userInput => {
     .catch(error => console.error(error))
 }
 
-displayPokemonCards(userInput)

@@ -40,8 +40,8 @@ const displayPokemonCards = userInput =>{
             <img height=400 src="${cards[i].imageUrlHiRes}">
           </div>
           <div class="card-action">
-            <a class="waves-effect waves-light btn-small">Add to Deck</a>
-            <a class="waves-effect waves-light btn-small">More Info</a>
+            <a class="waves-effect waves-light btn-smal addDeck">Add to Deck</a>
+            <a class="waves-effect waves-light btn-small moreInfo">More Info</a>
           </div>
         </div>
         `)

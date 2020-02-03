@@ -1,9 +1,18 @@
 //Global to check for Yugioh or Pokemon search. Defaulted to true for pokemon search. Change to false for Yuigoh search
 let isPokemon = true 
 let userInput = "charizard"
+
+$(document).ready(function () {
+  $('select').formSelect();
+});
+
 $(document).ready(function () {
   $('.sidenav').sidenav();
 });
+
+$('#card_search').on('click', (e) => {
+console.log('ping')
+})
 
 
 const displayPokemonCards = userInput =>{
@@ -18,7 +27,7 @@ const displayPokemonCards = userInput =>{
         newCards.html(`
         <div class="card">
           <div class="card-image">
-            <img class = "imgStyle" height = "240px"src="${cards[i].imageUrl}">
+            <img class = "imgStyle" height = "253px"src="${cards[i].imageUrl}">
           </div>
           <div class="card-action">
             <a href="#">Add to deck</a>

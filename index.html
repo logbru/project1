@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-<script src="https://kit.fontawesome.com/c7c1f14b64.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/c7c1f14b64.js" crossorigin="anonymous"></script>
   <title>Yu-gi-mon</title>
 </head>
 
@@ -20,25 +20,46 @@
         <li><a href="./deck.html">Deck</a></li>
       </ul>
     </div>
-      <nav>
-        <div class="nav-wrapper">
-          <form>
-            <div class="input-field">
-              <input id="search" type="search" required>
-              <label class="label-icon" for="search"><i class="fas fa-search"></i></label>
-              <i class="material-icons">close</i>
-            </div>
-          </form>
-        </div>
-      </nav>
   </nav>
+
+  <div class="container">
+    <div class="col s12 m7">
+      <h5 class="header">Search for cards</h5>
+      <div class="card horizontal">
+        <div class="card-stacked">
+          <div class="card-content">
+            <form>
+              <div class="input-field col s12">
+                <select>
+                  <option value="1" selected>Pokemon</option>
+                  <option value="2">Yu-gi-oh</option>
+                </select>
+              </div>
+              <div class="input-field col s6">
+                <input placeholder="Name" id="card_name" type="text" class="validate">
+              </div>
+            </form>
+          </div>
+          <div class="card-action">
+            <button style="float: right" class="btn waves-effect waves-light" type="submit" name="action">Search
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="card_list" class="row">
+
+      <!-- dynamically generate here -->
+      <!-- Stop here -->
+    </div>
+  </div>
 
   <ul class="sidenav" id="mobile-demo">
     <li><a href="./index.html">Search</a></li>
     <li><a href="./deck.html">Deck</a></li>
   </ul>
-  
-  <div id = 'cardDisplay'></div>
   <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

@@ -10,12 +10,21 @@ const displayPokemonCards = userInput =>{
   $.get(`https://api.pokemontcg.io/v1/cards?name=${userInput}`)
     .then( ({cards}) =>{
       console.log(cards)
-      let selector = $('#cardDisplay')
+      let selector = $('#card_list')
       for(let i =0; i<cards.length; i++){
-        let newCards = $('<p>')
+        let newCards = $('<div>')
         newCards.attr('id', cards[i].id)
+        newCards. addClass("col s12 m4")
         newCards.html(`
-          <img scr = "${cards[i].imageUrlHiRes}">
+        <div class="card">
+          <div class="card-image">
+            <img class = "imgStyle" height = "240px"src="${cards[i].imageUrl}">
+          </div>
+          <div class="card-action">
+            <a href="#">Add to deck</a>
+          </div>
+        </div>
+      </div>
         `)
         selector.append(newCards)
       }

@@ -126,6 +126,8 @@ const addPokemonToDeck = cardid => {
   let deck = JSON.parse(localStorage.getItem('pokeDeck'))
   deck.push(cardid)
   localStorage.setItem('pokeDeck', JSON.stringify(deck))
+  // Creates notification user when card gets added to the deck
+  M.toast({ html: 'Card added to the deck' })
 }
 
 const renderYugiohInfo = cardname => {

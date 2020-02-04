@@ -84,6 +84,8 @@ $('#openDeck').on('click', (e) => {
 })
 
 const removeCard = (card_id) => {
+  // Creates notification user when card gets removed from the deck
+  M.toast({ html: 'Card removed from the deck' })
   switch (isPokemon) {
     case true:
       let pokeArr = JSON.parse(localStorage.getItem('pokeDeck'))
@@ -100,6 +102,7 @@ const removeCard = (card_id) => {
       break
   }
 }
+
 
 $(document).on('click', (e) => {
   if (e.target.id === 'remove') {

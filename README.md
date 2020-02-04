@@ -1,5 +1,10 @@
 # project1
 
+As a USER
+I WANT to search for Pokemon and Yugioh cards 
+SO THAT I can add the cards to a deck builder
+
+
 GIVEN a Yugimon dashboard with form inputs
 WHEN I search for a Pokemon card
 THEN I am presented with multiple card images for that Pokemon

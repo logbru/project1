@@ -7,13 +7,13 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <script src="https://kit.fontawesome.com/c7c1f14b64.js" crossorigin="anonymous"></script>
-  <title>Yu-gi-mon</title>
+  <title>Yugi-mon</title>
 </head>
 
 <body>
   <nav>
-    <div class="nav-wrapper">
-      <img src="./images/yugimon.png" alt="Smiley face" height="50px">
+    <div class="nav-wrapper blue lighten-2">
+      <img src="./images/yugimon.png" alt="Yugi-mon" height="50px">
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="./index.html">Search</a></li>
@@ -38,19 +38,43 @@
               <div class="input-field col s6">
                 <input placeholder="Name" id="card_name" type="text" class="validate">
               </div>
-            </form>
           </div>
           <div class="card-action">
-            <button style="float: right" id="card_search" class="btn waves-effect waves-light" type="submit" name="action">Search
+            <button style="float: right" id="card_search" class="btn waves-effect waves-light" type="submit"
+              name="action">Search
               <i class="fas fa-search"></i>
             </button>
           </div>
+          </form>
         </div>
       </div>
     </div>
-
+    <h4 id="total"></h4>
     <div id="card_list" class="row">
+
     </div>
+      <div id="yugi_modal" class="modal modal-fixed-footer">
+        <div class="modal-content">
+          <h4 id="yugi_name"></h4>
+          <h5 id="yugi_type"></h5>
+          <p id="yugi_desc"></p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+      </div>
+      <div id="poke_modal" class="modal modal-fixed-footer">
+        <div class="modal-content">
+          <h4 id="poke_name"></h4>
+          <h5 id="poke_rarity"></h5>
+          <h5 id="poke_pokedex"></h5>
+          <h5 id="poke_hp"></h5>
+          <p id="poke_text"></p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+      </div>
   </div>
 
   <ul class="sidenav" id="mobile-demo">
@@ -60,7 +84,7 @@
   <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="./app.js"></script>
+  <script src="./search.js"></script>
 </body>
 
 </html>

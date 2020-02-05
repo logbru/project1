@@ -88,24 +88,16 @@ const renderYugioh = userInput => {
       card.attr('id', cards[0].name)
       card.addClass("col s12 m4")
       card.html(`
-                      <div class="card-panel">
-                        <span class="">
-                          <div class="row">
-                            <div class="col s12 m3">
-                              <h6>${date}</h6>
-                            </div>
-                            <div class="col s12 m3">
-                              <h6>${date}</h6>
-                            </div>
-                            <div class="col s12 m3">
-                              <h5>${date}</h5>
-                            </div>
-                            <div class="col s12 m3">
-                              <h5>${date}</h5>
-                            </div>
-                          </div>
-                        </span>
-                      </div>
+        <div class="card">
+          <div class="card-image">
+            <img src="${cardImage}" alt = "${cards[0].name}">
+          </div>
+          <div class="card-action">
+            <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
+            <a id="moreInfo" class="waves-effect waves-light btn modal-trigger" href="#yugi_modal">More Info</a>
+            <a class="waves-effect waves-light btn modal-trigger">Alt Card Art</a>
+          </div>
+        </div>
         `)
       $('#card_list').append(card)
 

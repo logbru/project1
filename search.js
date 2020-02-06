@@ -109,7 +109,7 @@ const renderYugioh = userInput => {
       card.attr('cardname', cards[0].name)
       card.addClass("col s12 m4")
       card.html(`
-        <div class="card" cardimg="${cardImage}" cardname="${cards[0].name}>
+        <div class="card" cardimg="${cardImage}" cardname="${cards[0].name}">
           <div class="card-image">
             <img src="${cardImage}" alt = "${cards[0].name}">
           </div>
@@ -145,7 +145,7 @@ const renderYugiohSet = userInput => {
         card.attr('cardname', cards[i].name)
         card.addClass("col s12 m4")
         card.html(`
-        <div class="card" cardimg="${cardImage}" cardname="${cards[i].name}>
+        <div class="card" cardimg="${cardImage}" cardname="${cards[i].name}">
           <div class="card-image">
             <img height=478.44 src="${cardImage}" alt = "${cards[i].name}">
           </div>

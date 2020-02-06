@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <script src="https://kit.fontawesome.com/c7c1f14b64.js" crossorigin="anonymous"></script>
+<link rel = "stylesheet" href = "./style.css">
   <title>Yugi-mon</title>
 </head>
 
@@ -31,15 +32,18 @@
             <form>
               <div class="input-field col s12">
                 <select id="card_select">
-                  <option id="poke" value="1" selected>Pokemon</option>
-                  <option id="yugi" value="2">Yu-gi-oh</option>
+                  <option id="poke" class = "searchOption" value="1" selected>Pokemon</option>
+                  <option id="yugi"  class = "searchOption" value="2">Yu-gi-oh</option>
                 </select>
               </div>
               <div class="input-field col s6">
                 <input placeholder="Name" id="card_name" type="text" class="validate">
               </div>
           </div>
-          <div class="card-action">
+          <div id = "cardAction" class="card-action">
+            <label id = "setSearch" class = "setSearch">
+              <input id = "set_search_box" type="checkbox"/>
+              <span>Search by Set</span>
             <button style="float: right" id="card_search" class="btn waves-effect waves-light" type="submit"
               name="action">Search
               <i class="fas fa-search"></i>

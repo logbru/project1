@@ -90,11 +90,12 @@ const renderYugioh = userInput => {
       card.html(`
         <div class="card">
           <div class="card-image">
-            <img height=400 src="${cardImage}">
+            <img src="${cardImage}" alt = "${cards[0].name}">
           </div>
           <div class="card-action">
             <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
             <a id="moreInfo" class="waves-effect waves-light btn modal-trigger" href="#yugi_modal">More Info</a>
+            <a class="waves-effect waves-light btn modal-trigger">Alt Card Art</a>
           </div>
         </div>
         `)

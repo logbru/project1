@@ -258,6 +258,7 @@ setInterval(() => {
     $('#setSearch').show()
   }
   else {
-    $('setSearch').hide()
+    console.log('ping')
+    $('#setSearch').hide()
   }
 }, 1000);

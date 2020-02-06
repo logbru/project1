@@ -76,7 +76,7 @@ const renderPokemon = userInput => {
           </div>
           <div class="card-action">
             <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
-            <a id="moreInfo" class="waves-effect waves-light btn modal-trigger" href="#poke_modal">More Info</a>
+            <a id="moreInfo" class="waves-effect waves-light btn-small modal-trigger" href="#poke_modal">More Info</a>
           </div>
         </div>
         `)
@@ -104,8 +104,8 @@ const renderYugioh = userInput => {
           </div>
           <div class="card-action">
             <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
-            <a id="moreInfo" class="waves-effect waves-light btn modal-trigger" href="#yugi_modal">More Info</a>
-            <a class="waves-effect waves-light btn modal-trigger">Alt Card Art</a>
+            <a id="moreInfo" class="waves-effect waves-light btn-small modal-trigger" href="#yugi_modal">More Info</a>
+            <a class="waves-effect waves-light btn-small modal-trigger">Alt Card Art</a>
           </div>
         </div>
         `)
@@ -134,8 +134,8 @@ const renderYugiohSet = userInput =>{
           </div>
           <div class="card-action">
             <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
-            <a id="moreInfo" class="waves-effect waves-light btn modal-trigger" href="#yugi_modal">More Info</a>
-            <a class="waves-effect waves-light btn modal-trigger">Alt Card Art</a>
+            <a id="moreInfo" class="waves-effect waves-light btn-small modal-trigger" href="#yugi_modal">More Info</a>
+            <a class="waves-effect waves-light btn-small modal-trigger">Alt Card Art</a>
           </div>
         </div>
         `)

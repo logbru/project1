@@ -115,6 +115,39 @@ const renderYugioh = userInput => {
     .catch(error => console.error(error))
 }
 
+
+const renderYugiohSet = userInput =>{
+  $('#card_list').html('')
+  $.get(`https://db.ygoprodeck.com/api/v6/cardinfo.php?set=${userInput}`)
+  .then(cards =>{
+  console.log(cards)
+  $('#total').text(`Total Cards Found: ${cards.length}`)
+  for(let i = 0; i<cards.length; i++){
+    let cardImage = cards[i].card_images[0].image_url
+    let card = $('<div>')
+    card.attr('id', cards[i].name)
+    card.addClass("col s12 m4")
+    card.html(`
+        <div class="card">
+          <div class="card-image">
+            <img src="${cardImage}" alt = "${cards[i].name}">
+          </div>
+          <div class="card-action">
+            <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
+            <a id="moreInfo" class="waves-effect waves-light btn modal-trigger" href="#yugi_modal">More Info</a>
+            <a class="waves-effect waves-light btn modal-trigger">Alt Card Art</a>
+          </div>
+        </div>
+        `)
+    $('#card_list').append(card)
+  }
+  })
+
+  .catch(error => console.error(error))
+
+}
+
+
 const renderPokemonInfo = cardid => {
   $.get(`https://api.pokemontcg.io/v1/cards?id=${cardid}`)
     .then((card) => {

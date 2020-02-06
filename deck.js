@@ -13,9 +13,8 @@ const renderPokedeck = (e) => {
   $('#card_list').html('')
   let deckArr = JSON.parse(localStorage.getItem('pokeDeck'))
   deckArr.forEach(cardinfo => {
-    console.log(cardinfo)
     let card = $('<div>')
-    card.attr('id', cardinfo[0])
+    card.attr('id', deckArr.indexOf(cardinfo))
     card.addClass("col s12 m4")
     card.html(`
         <div class="card">
@@ -35,9 +34,8 @@ const renderYugideck = (e) => {
   $('#card_list').html('')
   let deckArr = JSON.parse(localStorage.getItem('yugiDeck'))
   deckArr.forEach(cardinfo => {
-    console.log(cardinfo)
     let card = $('<div>')
-    card.attr('id', cardinfo[0])
+    card.attr('id', deckArr.indexOf(cardinfo))
     card.addClass("col s12 m4")
     card.html(`
         <div class="card">
@@ -73,14 +71,14 @@ const removeCard = (card_id) => {
   switch (isPokemon) {
     case true:
       let pokeArr = JSON.parse(localStorage.getItem('pokeDeck'))
-      pokeArr.splice(pokeArr.indexOf(card_id), 1)
+      pokeArr.splice(card_id, 1)
       localStorage.setItem('pokeDeck', JSON.stringify(pokeArr))
       renderPokedeck()
       break
 
     case false:
       let yugiArr = JSON.parse(localStorage.getItem('yugiDeck'))
-      yugiArr.splice(yugiArr.indexOf(card_id), 1)
+      yugiArr.splice(card_id, 1)
       localStorage.setItem('yugiDeck', JSON.stringify(yugiArr))
       renderYugideck()
       break

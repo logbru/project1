@@ -58,13 +58,21 @@ $('#card_search').on('click', (e) => {
 
 const renderPokemon = userInput => {
   $('#card_list').html('')
-
+  $('#total').html('')
   $.get(`https://api.pokemontcg.io/v1/cards?name=${userInput}`)
     .then(({ cards }) => {
       console.log(cards)
       let selector = $('#card_list')
       let cardsAmount = cards.length++
       console.log(cardsAmount)
+      //error checking for userInput
+      if (cardsAmount > 1) {
+        $('#total').text(`Total Cards Found: ${cardsAmount}`)
+      }
+      else {
+        $('#card_list').html(`<h5> Invalid Input. Please try again. </h5>`)
+        return
+      }
       $('#total').text(`Total Cards Found: ${cardsAmount}`)
       for (let i = 0; i < cards.length; i++) {
         let newCards = $('<div>')
@@ -89,7 +97,7 @@ const renderPokemon = userInput => {
 
 const renderYugioh = userInput => {
   $('#card_list').html('')
-
+  $('#total').html('')
   $.get(`https://db.ygoprodeck.com/api/v6/cardinfo.php?name=${userInput}`)
     .then(cards => {
       $('#total').text(`Total Cards Found: ${cards.length}`)
@@ -99,15 +107,6 @@ const renderYugioh = userInput => {
       card.attr('id', cards[0].name)
       card.addClass("col s12 m4")
       card.html(`
-<<<<<<< HEAD
-        <div class="card" cardimg="${cards[0].card_images[0].image_url}" cardname="${cards[0].name}">
-          <div class="card-image">
-            <img height=400 src="${cards[0].card_images[0].image_url}">
-          </div>
-          <div class="card-action">
-            <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
-            <a id="moreInfo" class="waves-effect waves-light btn modal-trigger" href="#poke_modal">More Info</a>
-=======
         <div class="card">
           <div class="card-image">
             <img src="${cardImage}" alt = "${cards[0].name}">
@@ -116,19 +115,22 @@ const renderYugioh = userInput => {
             <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
             <a id="moreInfo" class="waves-effect waves-light btn-small modal-trigger" href="#yugi_modal">More Info</a>
             <a class="waves-effect waves-light btn-small modal-trigger">Alt Card Art</a>
->>>>>>> 10a43db90c6b041fa9fbb4292ebc11c0b95883b4
           </div>
         </div>
         `)
       $('#card_list').append(card)
 
     })
-    .catch(error => console.error(error))
+    .catch(error => {
+      console.error(error)
+      $('#card_list').html(`<h5> Invalid Input. Please try again. </h5>`)
+    })
 }
 
 
 const renderYugiohSet = userInput => {
   $('#card_list').html('')
+  $('#total').html('')
   $.get(`https://db.ygoprodeck.com/api/v6/cardinfo.php?set=${userInput}`)
     .then(cards => {
       console.log(cards)
@@ -141,7 +143,7 @@ const renderYugiohSet = userInput => {
         card.html(`
         <div class="card">
           <div class="card-image">
-            <img src="${cardImage}" alt = "${cards[i].name}">
+            <img height=478.44 src="${cardImage}" alt = "${cards[i].name}">
           </div>
           <div class="card-action">
             <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
@@ -154,7 +156,10 @@ const renderYugiohSet = userInput => {
       }
     })
 
-    .catch(error => console.error(error))
+    .catch(error => {
+      console.error(error)
+      $('#card_list').html(`<h5> Invalid Input. Please try again. </h5>`)
+    })
 
 }
 

@@ -60,7 +60,7 @@ const renderPokemon = userInput => {
         newCards.attr('id', cards[i].id)
         newCards.addClass("col s12 m4")
         newCards.html(`
-        <div class="card">
+        <div class="card" cardimg="${cards[i].imageUrlHiRes}" cardname="${cards[i].name}">
           <div class="card-image">
             <img height=400 src="${cards[i].imageUrlHiRes}">
           </div>
@@ -88,24 +88,15 @@ const renderYugioh = userInput => {
       card.attr('id', cards[0].name)
       card.addClass("col s12 m4")
       card.html(`
-                      <div class="card-panel">
-                        <span class="">
-                          <div class="row">
-                            <div class="col s12 m3">
-                              <h6>${date}</h6>
-                            </div>
-                            <div class="col s12 m3">
-                              <h6>${date}</h6>
-                            </div>
-                            <div class="col s12 m3">
-                              <h5>${date}</h5>
-                            </div>
-                            <div class="col s12 m3">
-                              <h5>${date}</h5>
-                            </div>
-                          </div>
-                        </span>
-                      </div>
+        <div class="card" cardimg="${cards[0].card_images[0].image_url}" cardname="${cards[0].name}">
+          <div class="card-image">
+            <img height=400 src="${cards[0].card_images[0].image_url}">
+          </div>
+          <div class="card-action">
+            <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
+            <a id="moreInfo" class="waves-effect waves-light btn modal-trigger" href="#poke_modal">More Info</a>
+          </div>
+        </div>
         `)
       $('#card_list').append(card)
 
@@ -131,9 +122,12 @@ const renderPokemonInfo = cardid => {
     })
     .catch(error => console.error(error))
 }
-const addPokemonToDeck = cardid => {
+const addPokemonToDeck = (cardname, cardimg) => {
   let deck = JSON.parse(localStorage.getItem('pokeDeck'))
-  deck.push(cardid)
+  let card = []
+  card.push(cardname)
+  card.push(cardimg)
+  deck.push(card)
   localStorage.setItem('pokeDeck', JSON.stringify(deck))
 }
 
@@ -152,19 +146,27 @@ const renderYugiohInfo = cardname => {
     })
     .catch(error => console.error(error))
 }
-const addYugiohToDeck = cardid => {
+const addYugiohToDeck = (cardname, cardimg) => {
   let deck = JSON.parse(localStorage.getItem('yugiDeck'))
-  deck.push(cardid)
+  let card = []
+  card.push(cardname)
+  card.push(cardimg)
+  deck.push(card)
   localStorage.setItem('yugiDeck', JSON.stringify(deck))
 }
 
 $(document).on('click', (e) => {
   if (e.target.id === 'addDeck') {
     let card_id = e.target.parentElement.parentElement.parentElement.id
+    let card_elem = e.target.parentElement.parentElement
+    let card_img = card_elem.getAttribute('cardimg')
+    let card_name = card_elem.getAttribute('cardname')
+    console.log(card_img)
+    console.log(card_name)
     if (isPokemon === true) {
-      addPokemonToDeck(card_id)
+      addPokemonToDeck(card_name, card_img)
     } else {
-      addYugiohToDeck(card_id)
+      addYugiohToDeck(card_name, card_img)
     }
   } else if (e.target.id === 'moreInfo') {
     if (isPokemon === true) {

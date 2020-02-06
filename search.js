@@ -95,6 +95,7 @@ const renderYugioh = userInput => {
           <div class="card-action">
             <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
             <a id="moreInfo" class="waves-effect waves-light btn modal-trigger" href="#poke_modal">More Info</a>
+            <a class="waves-effect waves-light btn modal-trigger">Alt Card Art</a>
           </div>
         </div>
         `)
@@ -129,6 +130,8 @@ const addPokemonToDeck = (cardname, cardimg) => {
   card.push(cardimg)
   deck.push(card)
   localStorage.setItem('pokeDeck', JSON.stringify(deck))
+  // Creates notification user when card gets added to the deck
+  M.toast({ html: 'Card added to the deck' })
 }
 
 const renderYugiohInfo = cardname => {

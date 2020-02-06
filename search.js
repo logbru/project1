@@ -143,7 +143,7 @@ const renderYugiohSet = userInput => {
         card.html(`
         <div class="card">
           <div class="card-image">
-            <img src="${cardImage}" alt = "${cards[i].name}">
+            <img height=478.44 src="${cardImage}" alt = "${cards[i].name}">
           </div>
           <div class="card-action">
             <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>

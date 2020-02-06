@@ -1,6 +1,7 @@
 //Global to check for Yugioh or Pokemon search. Defaulted to true for pokemon search. Change to false for Yuigoh search
 let isPokemon = true
 let userInput = "charizard"
+let setSearch = false
 
 if (localStorage.hasOwnProperty('pokeDeck') === true) {
 
@@ -28,19 +29,28 @@ $(document).ready(function () {
   $('.modal').modal();
 });
 
+//checks if user selects Pokemon/Yugioh
+$('#card_select').change( _=>{
+  isPokemon = !isPokemon
+})
+
 
 $('#card_search').on('click', (e) => {
   e.preventDefault()
   let name = $('#card_name').val()
-  if ($('#card_select').val() === '1') { isPokemon = true } else { isPokemon = false }
-  console.log(userInput, isPokemon)
+  // if ($('#card_select').val() === '1') { isPokemon = true } else { isPokemon = false }
+  // console.log(userInput, isPokemon)
 
   if (isPokemon === true) {
     console.log('pokemon')
     renderPokemon(name)
   } else {
     console.log('yugioh')
-    renderYugioh(name)
+    if($('#set_search_box').is(':checked')){
+      renderYugiohSet(name)
+    } else{
+      renderYugioh(name)
+    }
   }
 })
 
@@ -169,3 +179,20 @@ $(document).on('click', (e) => {
     }
   }
 })
+
+$('#set_search').on('click', (e)=>{
+  console.log(event)
+})
+
+
+
+
+// hide / show search by set option
+setInterval(() => {
+  if(!isPokemon){
+    $('#setSearch').show()
+  }
+  else{
+    $('setSearch').hide()
+  }
+}, 1000);

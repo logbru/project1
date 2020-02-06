@@ -1,3 +1,4 @@
+// 
 //Global to check for Yugioh or Pokemon search. Defaulted to true for pokemon search. Change to false for Yuigoh search
 let isPokemon = true
 let userInput = "charizard"
@@ -30,7 +31,7 @@ $(document).ready(function () {
 });
 
 //checks if user selects Pokemon/Yugioh
-$('#card_select').change( _=>{
+$('#card_select').change(_ => {
   isPokemon = !isPokemon
 })
 
@@ -46,9 +47,9 @@ $('#card_search').on('click', (e) => {
     renderPokemon(name)
   } else {
     console.log('yugioh')
-    if($('#set_search_box').is(':checked')){
+    if ($('#set_search_box').is(':checked')) {
       renderYugiohSet(name)
-    } else{
+    } else {
       renderYugioh(name)
     }
   }
@@ -70,7 +71,7 @@ const renderPokemon = userInput => {
         newCards.attr('id', cards[i].id)
         newCards.addClass("col s12 m4")
         newCards.html(`
-        <div class="card">
+        <div class="card" cardimg="${cards[i].imageUrlHiRes}" cardname="${cards[i].name}">
           <div class="card-image">
             <img height=400 src="${cards[i].imageUrlHiRes}">
           </div>
@@ -98,6 +99,15 @@ const renderYugioh = userInput => {
       card.attr('id', cards[0].name)
       card.addClass("col s12 m4")
       card.html(`
+<<<<<<< HEAD
+        <div class="card" cardimg="${cards[0].card_images[0].image_url}" cardname="${cards[0].name}">
+          <div class="card-image">
+            <img height=400 src="${cards[0].card_images[0].image_url}">
+          </div>
+          <div class="card-action">
+            <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
+            <a id="moreInfo" class="waves-effect waves-light btn modal-trigger" href="#poke_modal">More Info</a>
+=======
         <div class="card">
           <div class="card-image">
             <img src="${cardImage}" alt = "${cards[0].name}">
@@ -106,6 +116,7 @@ const renderYugioh = userInput => {
             <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
             <a id="moreInfo" class="waves-effect waves-light btn-small modal-trigger" href="#yugi_modal">More Info</a>
             <a class="waves-effect waves-light btn-small modal-trigger">Alt Card Art</a>
+>>>>>>> 10a43db90c6b041fa9fbb4292ebc11c0b95883b4
           </div>
         </div>
         `)
@@ -116,18 +127,18 @@ const renderYugioh = userInput => {
 }
 
 
-const renderYugiohSet = userInput =>{
+const renderYugiohSet = userInput => {
   $('#card_list').html('')
   $.get(`https://db.ygoprodeck.com/api/v6/cardinfo.php?set=${userInput}`)
-  .then(cards =>{
-  console.log(cards)
-  $('#total').text(`Total Cards Found: ${cards.length}`)
-  for(let i = 0; i<cards.length; i++){
-    let cardImage = cards[i].card_images[0].image_url
-    let card = $('<div>')
-    card.attr('id', cards[i].name)
-    card.addClass("col s12 m4")
-    card.html(`
+    .then(cards => {
+      console.log(cards)
+      $('#total').text(`Total Cards Found: ${cards.length}`)
+      for (let i = 0; i < cards.length; i++) {
+        let cardImage = cards[i].card_images[0].image_url
+        let card = $('<div>')
+        card.attr('id', cards[i].name)
+        card.addClass("col s12 m4")
+        card.html(`
         <div class="card">
           <div class="card-image">
             <img src="${cardImage}" alt = "${cards[i].name}">
@@ -139,11 +150,11 @@ const renderYugiohSet = userInput =>{
           </div>
         </div>
         `)
-    $('#card_list').append(card)
-  }
-  })
+        $('#card_list').append(card)
+      }
+    })
 
-  .catch(error => console.error(error))
+    .catch(error => console.error(error))
 
 }
 
@@ -166,9 +177,12 @@ const renderPokemonInfo = cardid => {
     })
     .catch(error => console.error(error))
 }
-const addPokemonToDeck = cardid => {
+const addPokemonToDeck = (cardname, cardimg) => {
   let deck = JSON.parse(localStorage.getItem('pokeDeck'))
-  deck.push(cardid)
+  let card = []
+  card.push(cardname)
+  card.push(cardimg)
+  deck.push(card)
   localStorage.setItem('pokeDeck', JSON.stringify(deck))
   // Creates notification user when card gets added to the deck
   M.toast({ html: 'Card added to the deck' })
@@ -189,19 +203,27 @@ const renderYugiohInfo = cardname => {
     })
     .catch(error => console.error(error))
 }
-const addYugiohToDeck = cardid => {
+const addYugiohToDeck = (cardname, cardimg) => {
   let deck = JSON.parse(localStorage.getItem('yugiDeck'))
-  deck.push(cardid)
+  let card = []
+  card.push(cardname)
+  card.push(cardimg)
+  deck.push(card)
   localStorage.setItem('yugiDeck', JSON.stringify(deck))
 }
 
 $(document).on('click', (e) => {
   if (e.target.id === 'addDeck') {
     let card_id = e.target.parentElement.parentElement.parentElement.id
+    let card_elem = e.target.parentElement.parentElement
+    let card_img = card_elem.getAttribute('cardimg')
+    let card_name = card_elem.getAttribute('cardname')
+    console.log(card_img)
+    console.log(card_name)
     if (isPokemon === true) {
-      addPokemonToDeck(card_id)
+      addPokemonToDeck(card_name, card_img)
     } else {
-      addYugiohToDeck(card_id)
+      addYugiohToDeck(card_name, card_img)
     }
   } else if (e.target.id === 'moreInfo') {
     if (isPokemon === true) {
@@ -213,7 +235,7 @@ $(document).on('click', (e) => {
   }
 })
 
-$('#set_search').on('click', (e)=>{
+$('#set_search').on('click', (e) => {
   console.log(event)
 })
 
@@ -222,10 +244,10 @@ $('#set_search').on('click', (e)=>{
 
 // hide / show search by set option
 setInterval(() => {
-  if(!isPokemon){
+  if (!isPokemon) {
     $('#setSearch').show()
   }
-  else{
+  else {
     $('setSearch').hide()
   }
 }, 1000);

@@ -105,9 +105,11 @@ const renderYugioh = userInput => {
       let cardImage = cards[0].card_images[0].image_url
       let card = $('<div>')
       card.attr('id', cards[0].name)
+      card.attr('cardimg', cardImage)
+      card.attr('cardname', cards[0].name)
       card.addClass("col s12 m4")
       card.html(`
-        <div class="card">
+        <div class="card" cardimg="${cardImage}" cardname="${cards[0].name}>
           <div class="card-image">
             <img src="${cardImage}" alt = "${cards[0].name}">
           </div>
@@ -139,9 +141,11 @@ const renderYugiohSet = userInput => {
         let cardImage = cards[i].card_images[0].image_url
         let card = $('<div>')
         card.attr('id', cards[i].name)
+        card.attr('cardimg', cardImage)
+        card.attr('cardname', cards[i].name)
         card.addClass("col s12 m4")
         card.html(`
-        <div class="card">
+        <div class="card" cardimg="${cardImage}" cardname="${cards[i].name}>
           <div class="card-image">
             <img height=478.44 src="${cardImage}" alt = "${cards[i].name}">
           </div>
@@ -215,6 +219,7 @@ const addYugiohToDeck = (cardname, cardimg) => {
   card.push(cardimg)
   deck.push(card)
   localStorage.setItem('yugiDeck', JSON.stringify(deck))
+  M.toast({ html: 'Card added to the deck' })
 }
 
 $(document).on('click', (e) => {

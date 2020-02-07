@@ -2,7 +2,6 @@
 //Global to check for Yugioh or Pokemon search. Defaulted to true for pokemon search. Change to false for Yuigoh search
 let isPokemon = true
 let userInput = "charizard"
-let setSearch = false
 
 if (localStorage.hasOwnProperty('pokeDeck') === true) {
 
@@ -41,7 +40,7 @@ $('#card_search').on('click', (e) => {
   let name = $('#card_name').val()
   // if ($('#card_select').val() === '1') { isPokemon = true } else { isPokemon = false }
   // console.log(userInput, isPokemon)
-
+  $('#card_name').val('')
   if (isPokemon === true) {
     renderPokemon(name)
   } else {

@@ -76,7 +76,7 @@ const renderPokemon = userInput => {
         newCards.html(`
         <div class="card" cardimg="${cards[i].imageUrlHiRes}" cardname="${cards[i].name}">
           <div class="card-image">
-            <img height=400 src="${cards[i].imageUrlHiRes}">
+            <img src="${cards[i].imageUrlHiRes}">
           </div>
           <div class="card-action">
             <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
@@ -136,7 +136,7 @@ const renderYugioh = userInput => {
           card.html(`
             <div class="card">
               <div class="card-image">
-                <img height=auto width= 100 src ="${cards[0].card_images[i].image_url}" alt = "${cards[0].name}">
+                <img src ="${cards[0].card_images[i].image_url}" alt = "${cards[0].name}">
               </div>         
             `)
           altSelector.append(card) 
@@ -164,7 +164,7 @@ const renderYugiohSet = userInput => {
         card.html(`
         <div class="card" cardimg="${cardImage}" cardname="${cards[i].name}">
           <div class="card-image">
-            <img height=478.44 src="${cardImage}" alt = "${cards[i].name}">
+            <img class = "yugioh-img" src="${cardImage}" alt = "${cards[i].name}">
           </div>
           <div class="card-action">
             <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
@@ -194,7 +194,7 @@ const renderYugiohOverview = userInput => {
         card.html(`
         <div class="card" cardimg="${cardImage}" cardname="${cards[i].name}">
           <div class="card-image">
-            <img height=478.44 src="${cardImage}" alt = "${cards[i].name}">
+            <img clas = "yugioh-img" src="${cardImage}" alt = "${cards[i].name}">
           </div>
           <div class="card-action">
             <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>

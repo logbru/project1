@@ -127,22 +127,16 @@ const renderYugioh = userInput => {
       altSelector.empty()
       $.get(`https://db.ygoprodeck.com/api/v6/cardinfo.php?name=${userInput}`)
         .then(cards => {
-          console.log(cards)
-          console.log(cards[0].card_images)
-          console.log(cards[0].card_images.length)
           if (cards[0].card_images.length <= 1){ 
-            altSelector.text('There are no alternative card images')
+            altSelector.html('<h3>There are no alternative card images</h3>')
           }
           else  { 
           for (let i=1; i < cards[0].card_images.length; i++){
-          // let cardAltImage = cards[0].card_images[i].image_url
-           console.log(cards[0].card_images[i].image_url)
           let card = $('<div>')
-          // card.addClass("col s12 m4")
           card.html(`
             <div class="card">
               <div class="card-image">
-                <img height=auto width= 100 src ="${cards[0].card_images[i].image_url}" alt = "${cards[0].name}">
+                <img class = "alt-art" height=auto width= 100 src ="${cards[0].card_images[i].image_url}" alt = "${cards[0].name}">
               </div>         
             `)
           altSelector.append(card) 
@@ -175,7 +169,7 @@ const renderYugiohSet = userInput => {
           <div class="card-action">
             <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
             <a id="moreInfo" class="waves-effect waves-light btn-small modal-trigger" href="#yugi_modal">More Info</a>
-            <a class="waves-effect waves-light btn-small modal-trigger">Alt Card Art</a>
+            <a id="yugi-alt-image" class="waves-effect waves-light btn modal-trigger" href="#yugi-alt-modal">Alt Card Art</a>
           </div>
         </div>
         `)

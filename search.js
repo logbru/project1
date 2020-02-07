@@ -1,3 +1,4 @@
+// 
 //Global to check for Yugioh or Pokemon search. Defaulted to true for pokemon search. Change to false for Yuigoh search
 let isPokemon = true
 let userInput = "charizard"
@@ -28,45 +29,58 @@ $(document).ready(function () {
   $('.modal').modal();
 });
 
+//checks if user selects Pokemon/Yugioh
+$('#card_select').change(_ => {
+  isPokemon = !isPokemon
+})
+
 
 $('#card_search').on('click', (e) => {
   e.preventDefault()
   let name = $('#card_name').val()
-  if ($('#card_select').val() === '1') { isPokemon = true } else { isPokemon = false }
-  console.log(userInput, isPokemon)
-
+  // if ($('#card_select').val() === '1') { isPokemon = true } else { isPokemon = false }
+  // console.log(userInput, isPokemon)
+  $('#card_name').val('')
   if (isPokemon === true) {
-    console.log('pokemon')
     renderPokemon(name)
   } else {
-    console.log('yugioh')
-    renderYugioh(name)
+    if ($('#set_search_box').is(':checked')) {
+      renderYugiohSet(name)
+    } else {
+      renderYugioh(name)
+    }
   }
 })
 
 
 const renderPokemon = userInput => {
   $('#card_list').html('')
-
+  $('#total').html('')
   $.get(`https://api.pokemontcg.io/v1/cards?name=${userInput}`)
     .then(({ cards }) => {
-      console.log(cards)
       let selector = $('#card_list')
       let cardsAmount = cards.length++
-      console.log(cardsAmount)
+      //error checking for userInput
+      if (cardsAmount > 1) {
+        $('#total').text(`Total Cards Found: ${cardsAmount}`)
+      }
+      else {
+        $('#card_list').html(`<h5> Invalid Input. Please try again. </h5>`)
+        return
+      }
       $('#total').text(`Total Cards Found: ${cardsAmount}`)
-      for (let i = 0; i < cards.length; i++) {
+      for (let i = 0; i < cards.length - 1; i++) {
         let newCards = $('<div>')
         newCards.attr('id', cards[i].id)
         newCards.addClass("col s12 m4")
         newCards.html(`
-        <div class="card">
+        <div class="card" cardimg="${cards[i].imageUrlHiRes}" cardname="${cards[i].name}">
           <div class="card-image">
             <img height=400 src="${cards[i].imageUrlHiRes}">
           </div>
           <div class="card-action">
             <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
-            <a id="moreInfo" class="waves-effect waves-light btn modal-trigger" href="#poke_modal">More Info</a>
+            <a id="moreInfo" class="waves-effect waves-light btn-small modal-trigger" href="#poke_modal">More Info</a>
           </div>
         </div>
         `)
@@ -78,17 +92,18 @@ const renderPokemon = userInput => {
 
 const renderYugioh = userInput => {
   $('#card_list').html('')
-
+  $('#total').html('')
   $.get(`https://db.ygoprodeck.com/api/v6/cardinfo.php?name=${userInput}`)
     .then(cards => {
       $('#total').text(`Total Cards Found: ${cards.length}`)
-      console.log(cards)
       let cardImage = cards[0].card_images[0].image_url
       let card = $('<div>')
       card.attr('id', cards[0].name)
+      card.attr('cardimg', cardImage)
+      card.attr('cardname', cards[0].name)
       card.addClass("col s12 m4")
       card.html(`
-        <div class="card">
+        <div class="card" cardimg="${cardImage}" cardname="${cards[0].name}">
           <div class="card-image">
             <img src="${cardImage}" alt = "${cards[0].name}">
           </div>
@@ -96,13 +111,15 @@ const renderYugioh = userInput => {
             <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
             <a id="moreInfo" class="waves-effect waves-light btn modal-trigger" href="#yugi_modal">More Info</a>
             <a id="yugi-alt-image" class="waves-effect waves-light btn modal-trigger" href="#yugi-alt-modal">Alt Card Art</a>
-            
           </div>
         </div>
         `)
       $('#card_list').append(card)
     })
-    .catch(error => console.error(error))
+    .catch(error => {
+      console.error(error)
+      $('#card_list').html(`<h5> Invalid Input. Please try again. </h5>`)
+    })
 }
 
     const renderaltYugioh = userInput => {
@@ -136,6 +153,45 @@ const renderYugioh = userInput => {
       }
     
 
+
+const renderYugiohSet = userInput => {
+  $('#card_list').html('')
+  $('#total').html('')
+  $.get(`https://db.ygoprodeck.com/api/v6/cardinfo.php?set=${userInput}`)
+    .then(cards => {
+      $('#total').text(`Total Cards Found: ${cards.length}`)
+      for (let i = 0; i < cards.length - 1; i++) {
+        let cardImage = cards[i].card_images[0].image_url
+        let card = $('<div>')
+        card.attr('id', cards[i].name)
+        card.attr('cardimg', cardImage)
+        card.attr('cardname', cards[i].name)
+        card.addClass("col s12 m4")
+        card.html(`
+        <div class="card" cardimg="${cardImage}" cardname="${cards[i].name}">
+          <div class="card-image">
+            <img height=478.44 src="${cardImage}" alt = "${cards[i].name}">
+          </div>
+          <div class="card-action">
+            <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
+            <a id="moreInfo" class="waves-effect waves-light btn-small modal-trigger" href="#yugi_modal">More Info</a>
+            <a class="waves-effect waves-light btn-small modal-trigger">Alt Card Art</a>
+          </div>
+        </div>
+        `)
+        $('#card_list').append(card)
+      }
+    })
+
+    .catch(error => {
+      console.error(error)
+      $('#card_list').html(`<h5> Invalid Input. Please try again. </h5>`)
+    })
+
+}
+
+
+
 const renderPokemonInfo = cardid => {
   $.get(`https://api.pokemontcg.io/v1/cards?id=${cardid}`)
     .then((card) => {
@@ -154,9 +210,12 @@ const renderPokemonInfo = cardid => {
     })
     .catch(error => console.error(error))
 }
-const addPokemonToDeck = cardid => {
+const addPokemonToDeck = (cardname, cardimg) => {
   let deck = JSON.parse(localStorage.getItem('pokeDeck'))
-  deck.push(cardid)
+  let card = []
+  card.push(cardname)
+  card.push(cardimg)
+  deck.push(card)
   localStorage.setItem('pokeDeck', JSON.stringify(deck))
   // Creates notification user when card gets added to the deck
   M.toast({ html: 'Card added to the deck' })
@@ -166,7 +225,6 @@ const renderYugiohInfo = cardname => {
   $.get(`https://db.ygoprodeck.com/api/v6/cardinfo.php?name=${cardname}`)
     .then(card => {
       cardArr = card[0]
-      console.log(cardArr)
       $('#yugi_name').text('')
       $('#yugi_desc').text('')
       $('#yugi_type').text('')
@@ -177,19 +235,26 @@ const renderYugiohInfo = cardname => {
     })
     .catch(error => console.error(error))
 }
-const addYugiohToDeck = cardid => {
+const addYugiohToDeck = (cardname, cardimg) => {
   let deck = JSON.parse(localStorage.getItem('yugiDeck'))
-  deck.push(cardid)
+  let card = []
+  card.push(cardname)
+  card.push(cardimg)
+  deck.push(card)
   localStorage.setItem('yugiDeck', JSON.stringify(deck))
+  M.toast({ html: 'Card added to the deck' })
 }
 
 $(document).on('click', (e) => {
   if (e.target.id === 'addDeck') {
     let card_id = e.target.parentElement.parentElement.parentElement.id
+    let card_elem = e.target.parentElement.parentElement
+    let card_img = card_elem.getAttribute('cardimg')
+    let card_name = card_elem.getAttribute('cardname')
     if (isPokemon === true) {
-      addPokemonToDeck(card_id)
+      addPokemonToDeck(card_name, card_img)
     } else {
-      addYugiohToDeck(card_id)
+      addYugiohToDeck(card_name, card_img)
     }
   }
     else if (e.target.id === 'moreInfo') {
@@ -207,4 +272,21 @@ $(document).on('click', (e) => {
     }
   }
 })
-// javascript
+
+
+$('#set_search').on('click', (e) => {
+  console.log(event)
+})
+
+
+
+
+// hide / show search by set option
+setInterval(() => {
+  if (!isPokemon) {
+    $('#setSearch').show()
+  }
+  else {
+    $('#setSearch').hide()
+  }
+}, 1000);

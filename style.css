@@ -1,8 +1,20 @@
-.setSearch{
+.setSearch {
   display: none;
 }
 
-a{
+a {
   margin-bottom: 5px;
 }
 
+.card-image img {
+  height: 400px;
+}
+
+.modal-content img {
+  height: auto;
+  width: 100px;
+}
+
+.yugioh-img {
+  height: 478.44;
+}

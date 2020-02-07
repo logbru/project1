@@ -127,18 +127,12 @@ const renderYugioh = userInput => {
       altSelector.empty()
       $.get(`https://db.ygoprodeck.com/api/v6/cardinfo.php?name=${userInput}`)
         .then(cards => {
-          console.log(cards)
-          console.log(cards[0].card_images)
-          console.log(cards[0].card_images.length)
           if (cards[0].card_images.length <= 1){ 
             altSelector.html('<h3>There are no alternative card images</h3>')
           }
           else  { 
           for (let i=1; i < cards[0].card_images.length; i++){
-          // let cardAltImage = cards[0].card_images[i].image_url
-           console.log(cards[0].card_images[i].image_url)
           let card = $('<div>')
-          // card.addClass("col s12 m4")
           card.html(`
             <div class="card">
               <div class="card-image">

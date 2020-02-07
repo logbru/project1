@@ -88,30 +88,53 @@ const renderYugioh = userInput => {
       card.attr('id', cards[0].name)
       card.addClass("col s12 m4")
       card.html(`
-                      <div class="card-panel">
-                        <span class="">
-                          <div class="row">
-                            <div class="col s12 m3">
-                              <h6>${date}</h6>
-                            </div>
-                            <div class="col s12 m3">
-                              <h6>${date}</h6>
-                            </div>
-                            <div class="col s12 m3">
-                              <h5>${date}</h5>
-                            </div>
-                            <div class="col s12 m3">
-                              <h5>${date}</h5>
-                            </div>
-                          </div>
-                        </span>
-                      </div>
+        <div class="card">
+          <div class="card-image">
+            <img src="${cardImage}" alt = "${cards[0].name}">
+          </div>
+          <div class="card-action">
+            <a id="addDeck" class="waves-effect waves-light btn-small addDeck">Add to Deck</a>
+            <a id="moreInfo" class="waves-effect waves-light btn modal-trigger" href="#yugi_modal">More Info</a>
+            <a id="yugi-alt-image" class="waves-effect waves-light btn modal-trigger" href="#yugi-alt-modal">Alt Card Art</a>
+            
+          </div>
+        </div>
         `)
       $('#card_list').append(card)
-
     })
     .catch(error => console.error(error))
 }
+
+    const renderaltYugioh = userInput => {
+      let altSelector =$('#yugi-alt-modal-content')
+      altSelector.empty()
+      $.get(`https://db.ygoprodeck.com/api/v6/cardinfo.php?name=${userInput}`)
+        .then(cards => {
+          console.log(cards)
+          console.log(cards[0].card_images)
+          console.log(cards[0].card_images.length)
+          if (cards[0].card_images.length <= 1){ 
+            altSelector.text('There are no alternative card images')
+          }
+          else  { 
+          for (let i=1; i < cards[0].card_images.length; i++){
+          // let cardAltImage = cards[0].card_images[i].image_url
+           console.log(cards[0].card_images[i].image_url)
+          let card = $('<div>')
+          // card.addClass("col s12 m4")
+          card.html(`
+            <div class="card">
+              <div class="card-image">
+                <img height=auto width= 100 src ="${cards[0].card_images[i].image_url}" alt = "${cards[0].name}">
+              </div>         
+            `)
+          altSelector.append(card) 
+          }
+        }
+        })
+        .catch(error => console.error(error))
+      }
+    
 
 const renderPokemonInfo = cardid => {
   $.get(`https://api.pokemontcg.io/v1/cards?id=${cardid}`)
@@ -168,12 +191,20 @@ $(document).on('click', (e) => {
     } else {
       addYugiohToDeck(card_id)
     }
-  } else if (e.target.id === 'moreInfo') {
-    if (isPokemon === true) {
+  }
+    else if (e.target.id === 'moreInfo') {
+      if (isPokemon === true) {
+        let card_id = e.target.parentElement.parentElement.parentElement.id
+        renderPokemonInfo(e.target.parentElement.parentElement.parentElement.id)
+      } else {
+        renderYugiohInfo(e.target.parentElement.parentElement.parentElement.id)
+      }
+    }
+   else if (e.target.id === 'yugi-alt-image') {
+    if (isPokemon === false) {
       let card_id = e.target.parentElement.parentElement.parentElement.id
-      renderPokemonInfo(e.target.parentElement.parentElement.parentElement.id)
-    } else {
-      renderYugiohInfo(e.target.parentElement.parentElement.parentElement.id)
+      renderaltYugioh(e.target.parentElement.parentElement.parentElement.id)
     }
   }
 })
+// javascript

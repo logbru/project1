@@ -43,10 +43,8 @@ $('#card_search').on('click', (e) => {
   // console.log(userInput, isPokemon)
 
   if (isPokemon === true) {
-    console.log('pokemon')
     renderPokemon(name)
   } else {
-    console.log('yugioh')
     if ($('#set_search_box').is(':checked')) {
       renderYugiohSet(name)
     } else {
@@ -61,10 +59,8 @@ const renderPokemon = userInput => {
   $('#total').html('')
   $.get(`https://api.pokemontcg.io/v1/cards?name=${userInput}`)
     .then(({ cards }) => {
-      console.log(cards)
       let selector = $('#card_list')
       let cardsAmount = cards.length++
-      console.log(cardsAmount)
       //error checking for userInput
       if (cardsAmount > 1) {
         $('#total').text(`Total Cards Found: ${cardsAmount}`)
@@ -74,7 +70,7 @@ const renderPokemon = userInput => {
         return
       }
       $('#total').text(`Total Cards Found: ${cardsAmount}`)
-      for (let i = 0; i < cards.length; i++) {
+      for (let i = 0; i < cards.length - 1; i++) {
         let newCards = $('<div>')
         newCards.attr('id', cards[i].id)
         newCards.addClass("col s12 m4")
@@ -101,7 +97,6 @@ const renderYugioh = userInput => {
   $.get(`https://db.ygoprodeck.com/api/v6/cardinfo.php?name=${userInput}`)
     .then(cards => {
       $('#total').text(`Total Cards Found: ${cards.length}`)
-      console.log(cards)
       let cardImage = cards[0].card_images[0].image_url
       let card = $('<div>')
       card.attr('id', cards[0].name)
@@ -135,9 +130,8 @@ const renderYugiohSet = userInput => {
   $('#total').html('')
   $.get(`https://db.ygoprodeck.com/api/v6/cardinfo.php?set=${userInput}`)
     .then(cards => {
-      console.log(cards)
       $('#total').text(`Total Cards Found: ${cards.length}`)
-      for (let i = 0; i < cards.length; i++) {
+      for (let i = 0; i < cards.length - 1; i++) {
         let cardImage = cards[i].card_images[0].image_url
         let card = $('<div>')
         card.attr('id', cards[i].name)
@@ -201,7 +195,6 @@ const renderYugiohInfo = cardname => {
   $.get(`https://db.ygoprodeck.com/api/v6/cardinfo.php?name=${cardname}`)
     .then(card => {
       cardArr = card[0]
-      console.log(cardArr)
       $('#yugi_name').text('')
       $('#yugi_desc').text('')
       $('#yugi_type').text('')
@@ -228,8 +221,6 @@ $(document).on('click', (e) => {
     let card_elem = e.target.parentElement.parentElement
     let card_img = card_elem.getAttribute('cardimg')
     let card_name = card_elem.getAttribute('cardname')
-    console.log(card_img)
-    console.log(card_name)
     if (isPokemon === true) {
       addPokemonToDeck(card_name, card_img)
     } else {

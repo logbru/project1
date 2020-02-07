@@ -22,7 +22,7 @@ const renderPokedeck = (e) => {
             <img height=400 src="${cardinfo[1]}">
           </div>
           <div class="card-action">
-<a id="remove" class="waves-effect waves-light btn-small addDeck">Remove</a>
+            <a id="remove" class="waves-effect waves-light btn-small addDeck">Remove</a>
           </div>
         </div>
         `)
@@ -43,7 +43,7 @@ const renderYugideck = (e) => {
             <img height=400 src="${cardinfo[1]}">
           </div>
           <div class="card-action">
-<a id="remove" class="waves-effect waves-light btn-small addDeck">Remove</a>
+            <a id="remove" class="waves-effect waves-light btn-small addDeck">Remove</a>
           </div>
         </div>
         `)

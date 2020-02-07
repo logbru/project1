@@ -142,7 +142,7 @@ const renderYugioh = userInput => {
           card.html(`
             <div class="card">
               <div class="card-image">
-                <img height=auto width= 100 src ="${cards[0].card_images[i].image_url}" alt = "${cards[0].name}">
+                <img class = "alt-art" height=auto width= 100 src ="${cards[0].card_images[i].image_url}" alt = "${cards[0].name}">
               </div>         
             `)
           altSelector.append(card) 
